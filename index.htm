@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotCoin</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <meta name="theme-color" content="#f19e36">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <style>
+        .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .menu-bottuns {
+            width: 90%;
+            padding: 1rem 0.25rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 5rem;
+            background-color: rgba(218, 218, 218, 0.2);
+            border: 2px solid rgba(218, 218, 218, 0.03);
+            border-radius: 15px;
+            margin-left: 2rem;
+        }
+
+        .button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0.25rem;
+            width: 33.3333%;
+        }
+
+        .button img {
+            margin-top: 0.5rem;
+        }
+
+        .button span {
+            margin-top: 0.25rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .b-r {
+            border-right: 2px solid rgba(218, 218, 218, 0.1);
+        }
+
+        .coin-container {
+            position: relative;
+        }
+
+        .coin-value {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes moveUpAndFade {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(1);
+            }
+        }
+
+        .select-none {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            pointer-events: none;
+        }
+
+        .coin-value.show {
+            animation: moveUpAndFade 1s forwards;
+        }
+
+        .squad-container {
+            margin: 1.75rem auto;
+            width: 80%;
+            height: 4.5rem;
+            border-radius: 15px;
+            background-color: rgba(80, 80, 80, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="squad-container">
+        <div class="login">
+            <div class="login-detail">
+                <div class="profile">
+                    <img src="assets/images/no-profile.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10%; user-select: none; -webkit-user-select: none; -moz-user-select: none; pointer-events: none;">
+                </div>
+                <div class="user-data">
+                    <span class="name">DoSToN?</span>
+                    <span class="user-rank">Rank: 70</span>
+                </div>
+            </div>
+            <div>
+                <img src="assets/images/rankall.png" alt="Rank" class="select-none" width="40px">
+            </div>
+        </div>
+    </div>
+
+    <div class="coin-count-container">
+        <img src="assets/images/coin.png" class="select-none" width="45px">
+        <h1>0</h1>
+    </div>
+
+    <div class="coin-container">
+        <div id="coin-value" class="coin-value"></div>
+        <img src="assets/images/golden.png" id="coin" class="select-none" width="250px">
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-bottuns">
+            <a href="frens.php.html?chat_id=1873407633" class="button b-r">
+                <img src="assets/images/teddy-bear.png" alt="" class="select-none" width="35px">
+                <span class="select-none">Friends</span>
+            </a>
+
+            <a href="earn.php.html?chat_id=1873407633" class="button b-r">
+                <img src="assets/images/coin2.png" alt="" class="select-none" width="35px">
+                <span class="select-none">Earn</span>
+            </a>
+
+            <a href="boost.php.html?chat_id=1873407633" class="button b-r">
+                <img src="assets/images/rocket.png" alt="" class="select-none" width="35px">
+                <span class="select-none">Boost</span>
+            </a>
+
+            <!-- Убрана кнопка Miner -->
+            <!-- <a href="javascript:void(0);" class="button b-r disabled">
+                <img src="assets/images/miner.png" alt="" class="select-none" width="35px">
+                <span class="select-none">Miner</span>
+            </a> -->
+
+            <a href="leaderboard.php.html?chat_id=1873407633" class="button b-r">
+                <img src="assets/images/top10.png" alt="" class="select-none" width="35px">
+                <span class="select-none">TOP</span>
+            </a>
+
+            <a href="total.php.html?chat_id=1873407633" class="button">
+                <img src="assets/images/total.png" alt="" class="select-none" width="35px">
+                <span class="select-none">Total</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="power">
+            <img src="assets/images/thunder.png" class="select-none" width="40px">
+            <div class="power-count">
+                <span id="power" class="select-none"></span>
+                <span class="gray select-none" id="total">/700</span>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let coinPerTap = 1;
+        let totalPower = 700;
+
+        let coinContainer = document.querySelector('.coin-container');
+        let coinImage = coinContainer.querySelector('img');
+        let coinValueElement = document.getElementById('coin-value');
+        let powerElement = document.getElementById('power');
+        let coinCountElement = document.querySelector('.coin-count-container h1');
+        let progressBar = document.querySelector('.progress');
+
+        let coins = 0;
+        let power = 700;
+        let lastTapTime = 0;
+        const tapCooldown = 100; // Milliseconds
+
+        let coinUpdateQueue = 0;
+        let isUpdating = false;
+
+        let activeTouches = new Set();
+
+        // Save last update time
+        function saveLastUpdateTime() {
+            localStorage.setItem('lastUpdateTime', Date.now());
+        }
+
+        // Update power based on elapsed time
+        function updatePowerBasedOnTime() {
+            let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime') || Date.now());
+            let currentTime = Date.now();
+            let elapsedTime = currentTime - lastUpdateTime;
+            let powerToAdd = Math.floor(elapsedTime / 1500);  // Power restores every 1.5 seconds
+
+            power = Number(localStorage.getItem('power') || power);
+            power = Math.min(power + powerToAdd, totalPower);
+
+            localStorage.setItem('power', power);  // Save power to localStorage
+            saveLastUpdateTime();  // Save last update time
+        }
+
+        updatePowerBasedOnTime();
+
+        localStorage.setItem('coins', coins);
+        localStorage.setItem('power', power);
+        saveLastUpdateTime();
+
+        function updateDisplay() {
+            coinCountElement.textContent = Number(localStorage.getItem('coins')).toLocaleString();
+            let currentPower = Number(localStorage.getItem('power'));
+            powerElement.textContent = currentPower;
+            progressBar.style.width = `${(100 * currentPower) / totalPower}%`;
+        }
+
+        function showCoinValue(value, x, y) {
+            let newCoinValue = document.createElement('div');
+            newCoinValue.className = 'coin-value';
+            newCoinValue.textContent = `+${value}`;
+            newCoinValue.style.left = `${x}px`;
+            newCoinValue.style.top = `${y}px`;
+            coinContainer.appendChild(newCoinValue);
+            
+            setTimeout(() => {
+                newCoinValue.classList.add('show');
+            }, 10);
+
+            setTimeout(() => {
+                coinContainer.removeChild(newCoinValue);
+            }, 1000);
+        }
+
+        function vibrateDevice() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function encryptChatId(chatId) {
+            return btoa(chatId.split('').reverse().join(''));
+        }
+
+        function updateCoinOnServer() {
+            if (coinUpdateQueue > 0 && !isUpdating) {
+                isUpdating = true;
+                let amount = coinUpdateQueue;
+                coinUpdateQueue = 0;
+                let encryptedChatId = encryptChatId('1873407633');
+                fetch(`update_coin.php?chat_id=${encryptedChatId}&amount=${amount}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        localStorage.setItem('coins', data.coin);
+                        updateDisplay();
+                        isUpdating = false;
+                        if (coinUpdateQueue > 0) {
+                            updateCoinOnServer();
+                        }
+                    })
+                    .catch(() => {
+                        coinUpdateQueue += amount;
+                        isUpdating = false;
+                    });
+            }
+        }
+
+        function handleTouch(e) {
+            e.preventDefault();
+            
+            const currentTime = Date.now();
+            if (currentTime - lastTapTime < tapCooldown) {
+                return;
+            }
+            lastTapTime = currentTime;
+            
+            vibrateDevice();
+            
+            coins = Number(localStorage.getItem('coins'));
+            power = Number(localStorage.getItem('power'));
+            
+            let touchPoints = e.targetTouches;
+            let addedCoins = 0;
+            
+            for (let i = 0; i < touchPoints.length; i++) {
+                if (power >= coinPerTap) {
+                    let touch = touchPoints[i];
+                    let rect = coinImage.getBoundingClientRect();
+                    let x = touch.clientX - rect.left;
+                    let y = touch.clientY - rect.top;
+                    
+                    addedCoins += coinPerTap;
+                    power -= coinPerTap;
+                    
+                    showCoinValue(coinPerTap, x, y);
+                    
+                    let angle = Math.random() * 20 - 10;
+                    let translateX = (Math.random() * 0.5 - 0.25).toFixed(2);
+                    let translateY = (Math.random() * 0.5 - 0.25).toFixed(2);
+                    coinImage.style.transform = `translate(${translateX}rem, ${translateY}rem) rotate(${angle}deg)`;
+                } else {
+                    break;
+                }
+            }
+
+            if (addedCoins > 0) {
+                coins += addedCoins;
+                localStorage.setItem('coins', coins);
+                localStorage.setItem('power', power);
+                coinUpdateQueue += addedCoins;
+                
+                updateDisplay();
+                updateCoinOnServer();
+            }
+
+            setTimeout(() => {
+                coinImage.style.transform = 'translate(0px, 0px) rotate(0deg)';
+            }, 100);
+            
+            updateDisplay();
+        }
+
+        coinContainer.addEventListener('touchstart', handleTouch);
+
+        if (!('ontouchstart' in window)) {
+            coinContainer.addEventListener('click', (e) => {
+                handleTouch({
+                    preventDefault: () => {},
+                    targetTouches: [{
+                        clientX: e.clientX,
+                        clientY: e.clientY
+                    }]
+                });
+            });
+        }
+
+        setInterval(() => {
+            updatePowerBasedOnTime();
+            updateDisplay();
+        }, 1500);
+
+        setInterval(updateCoinOnServer, 1000);
+
+        updateDisplay();
+
+        window.addEventListener('beforeunload', saveLastUpdateTime);
+    </script>
+
+</body>
+</html>
