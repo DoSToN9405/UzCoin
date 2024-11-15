@@ -1,0 +1,269 @@
+﻿<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notcoin - Friends</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <meta name="theme-color" content="#f19e36">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <style>
+.frens-invite {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.frens-invite-buttons {
+    position: fixed;
+    bottom: 3vh; /* Increased this value */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 23.5rem;
+    max-width: 90vw; /* Added for better compatibility */
+}
+.share-button, .copy-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.25rem;
+    background: linear-gradient(83deg, rgba(255,184,95,1) 3%, rgba(241,158,54,1) 28%, rgba(255,142,2,1) 91%);
+    border-radius: 15px;
+    text-decoration: none;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.share-button {
+    flex: 0 0 80%;
+    margin-right: 5px;
+}
+
+.copy-button {
+    flex: 0 0 20%;
+}
+
+.share-button:hover, .copy-button:hover {
+    opacity: 0.9;
+}
+.guid-button a,
+.frens-invite-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.25rem;
+    background: linear-gradient(83deg, rgba(255,184,95,1) 3%, rgba(241,158,54,1) 28%, rgba(255,142,2,1) 91%);
+    width: 24rem;
+    border-radius: 15px;
+}
+
+.frens-invite-button a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    padding: 10px;
+}
+
+.frens-invite-button a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+.frens-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 0px;
+}
+.frens-help-box,
+.frens-list-box {
+    width: 100%;
+    /* height: 10rem; */
+    margin: 0 auto;
+    border-radius: 15px;
+    background-color: rgba(218, 218, 218, 0.2);
+    border: 2px solid rgba(218, 218, 218, 0.02);
+}
+.no-frens-box {
+    position: relative;
+    padding: 20px;
+    min-height: 150px;
+     border: 2px solid rgba(218, 218, 218, 0.02);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.no-frens-box p {
+    margin: 0;
+    z-index: 1;
+}
+
+.no-frens-box::before {
+    content: "☹️";
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+.copy-message {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(218, 218, 218, 0.02);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+.frens-invite {
+    position: relative;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.share-button {
+    animation: pulse 2s infinite;
+}
+
+.share-button:hover {
+    animation: none;
+}
+.select-none {
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* For WebKit browsers */
+    -moz-user-select: none; /* For Firefox */
+    pointer-events: none; /* Prevent interactions */
+}
+    </style>
+</head>
+<body class="frens">
+    
+    <div class="haeder">
+        <a href="index.htm?chat_id=1873407633">
+            <svg width="25px" height="25px" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 11.9299H2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8.00009 19L2.84009 14C2.5677 13.7429 2.35071 13.433 2.20239 13.0891C2.05407 12.7452 1.97754 12.3745 1.97754 12C1.97754 11.6255 2.05407 11.2548 2.20239 10.9109C2.35071 10.567 2.5677 10.2571 2.84009 10L8.00009 5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </a>
+    </div>
+
+    <div class="frens-main">
+
+        <div class="frens-count">
+            <span>0 Referrals</span>
+        </div>
+
+
+<!-- Then in the HTML section -->
+<div class="frens-total-earn">
+    <div class="frens-total-count">
+        <span>+20</span>
+        <img src="assets/images/invite-icon.png" class="select-none" width="30px">
+    </div>
+    <div>
+        <span>?????? ?????????</span>
+        <span class="leaders"> TOP Referrals</span>
+    </div>
+    <div>
+         <img src="assets/images/trophy.png" class="select-none" width="40px">
+    </div>
+</div>
+    </div>
+
+
+    <div class="frens-help">
+        <div class="frens-help-title">
+            <span>Invite Friends to get Bonuses</span>
+        </div>
+
+        <div class="frens-help-box">
+            <div class="frens-help-content">
+                <div class="frens-help-image">
+                    <img src="assets/images/golden.png" class="select-none" width="50px">
+                </div>
+                <div class="fren-help-text">
+                    <h5>Invite Friends</h5>
+                    <div>
+                        <img src="assets/images/coin.png" class="select-none" width="15px">
+                        <span>3500</span>
+                        <span>For You and Your Friend</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<div class="frens-list">
+    <div class="frens-list-title">
+        <span>My Referrals:</span>
+    </div>
+    <div class="frens-list-box">
+            <div class="no-frens no-frens-box">
+            <p>You have no Referrals.</p>
+        </div>
+            </div>
+</div>
+
+
+<div class="frens-invite">
+    <div class="frens-invite-buttons">
+        <a href="https://t.me/share/url?url=%E2%9D%8C+Block+User%0D%0A%0D%0Ahttps%3A%2F%2Ft.me%2Ftapswap_coin_crypto_bot%3Fstart%3D1873407633" target="_blank" class="share-button">
+    <span>Share Invite Link</span>
+</a>
+        <button class="copy-button" onclick="if (!window.__cfRLUnblockHandlers) return false; copyInviteLink()" data-cf-modified-75473d6eea980d21acb74534-="">
+            <span>Copy</span>
+        </button>
+    </div>
+    <div id="copy-message" class="copy-message">Link Copied!</div>
+</div>
+
+<script type="75473d6eea980d21acb74534-text/javascript">
+function copyInviteLink() {
+    var inviteLink = "https://t.me/tapswap_coin_crypto_bot?start=1873407633";
+    navigator.clipboard.writeText(inviteLink).then(function() {
+        showCopyMessage();
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+    });
+}
+
+function showCopyMessage() {
+    var message = document.getElementById('copy-message');
+    message.style.display = 'block';
+    setTimeout(function() {
+        message.style.display = 'none';
+    }, 3000);
+}
+</script>
+<script src="../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="75473d6eea980d21acb74534-|49" defer=""></script></body>
+</html>
